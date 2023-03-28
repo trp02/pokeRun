@@ -8,9 +8,10 @@ class Model:
         self.y = y
         self.width = width
         self.height = height
-        self.hitbox = (self.x + 10, self.y, 28, 315)
 
-        
+    def getHitbox(self):
+        return (self.x + 3, self.y + 3, self.width - 3, self.height - 3)
+    
 class obstacle1(Model):
     
     img = pygame.image.load("assets/spike1.png")

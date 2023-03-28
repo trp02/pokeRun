@@ -47,6 +47,7 @@ class Controller:
             for obs in self.obstacles:
                 obsData = obs.getImgInfo()
                 self.view.blitImg(obsData[0], obsData[1], obsData[2])
+                self.view.drawRect((255,0,0), obs.getHitbox())
         
             self.view.update()
             self.clock.tick(60)
