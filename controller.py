@@ -1,7 +1,7 @@
 import pygame, sys, math, random
-from model import Model, obstacle1
+from model import Model, obstacle1, obstacle2
 SCREEN_SIZE = SCREEN_WIDTH, SCREEN_HEIGHT = 1300, 675
-
+FLOOR = 510
 #helper variables
 bg = 0
 tiles = 0
@@ -28,12 +28,22 @@ class Controller:
                 if event.type == pygame.QUIT:
                     self.view.endGame()
                     sys.exit()
+                    
+                #generates new obstacle
                 if event.type == self.trigger:
-                    self.obstacles.append(obstacle1(1350, 300, 300, 156))
+                    #chooses random obstacle to create
+                    rand = random.randint(1,2)
+                    if rand == 1:
+                        self.obstacles.append(obstacle1(1350, FLOOR-60, 115, 60))
+                    elif(rand == 2):
+                        self.obstacles.append(obstacle2(1350, FLOOR-60, 115, 60))
+                        
+                    
             
             self.moveObstacles()
             
             self.updateBackground()
+            #blits all obstacles
             for obs in self.obstacles:
                 obsData = obs.getImgInfo()
                 self.view.blitImg(obsData[0], obsData[1], obsData[2])
@@ -42,15 +52,17 @@ class Controller:
             self.clock.tick(60)
     
     def moveObstacles(self):
+        #keeps obstacles moving along with the background and removes once they go off screen
         obstacles_to_remove = []
         for obs in self.obstacles:
             obs.x -= 2
-            if obs.x + obs.width < -400:
+            if obs.x + obs.width < -300:
                 obstacles_to_remove.append(obs)
         for obs in obstacles_to_remove:
             self.obstacles.remove(obs)
             
     def updateBackground(self):
+        #updates background image 
         global scroll, tiles, bg
         for i in range(-1, tiles):
             w = bg.get_width()

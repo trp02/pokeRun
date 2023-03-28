@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame, sys, random
 
 SCREEN_SIZE = SCREEN_WIDTH, SCREEN_HEIGHT = 1200, 675
 
@@ -12,7 +12,15 @@ class Model:
 
         
 class obstacle1(Model):
-    img = pygame.image.load("assets/spike2.png")
+    
+    img = pygame.image.load("assets/spike1.png")
+    #returns image and x, y coords 
+    def getImgInfo(self):
+        return (self.img, self.x, self.y)
+    
+class obstacle2(Model):
 
+    img = pygame.image.load("assets/spike2.png")
+    #returns image and x, y coords 
     def getImgInfo(self):
         return (self.img, self.x, self.y)
