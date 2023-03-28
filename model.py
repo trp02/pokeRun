@@ -21,7 +21,7 @@ class obstacle1(Model):
         return (self.img, self.x, self.y)
     
     def getHitbox(self):
-        return (self.x + 8, self.y + 3, self.width - 10, self.height - 3)
+        return (self.x + 10, self.y + 8, self.width - 16, self.height - 3)
     
 class obstacle2(Model):
 
@@ -30,11 +30,14 @@ class obstacle2(Model):
     def getImgInfo(self):
         return (self.img, self.x, self.y)
     def getHitbox(self):
-        return (self.x + 3, self.y + 3, self.width - 3, self.height - 3)
+        return (self.x + 8, self.y + 3, self.width - 12, self.height - 3)
+    
+    
 class character(Model):
     
     #walking animation
     charwalk = [pygame.image.load("assets/charmander/walk1.png"), pygame.image.load("assets/charmander/walk2.png"), pygame.image.load("assets/charmander/walk3.png"), pygame.image.load("assets/charmander/walk4.png")]
+    charjump = pygame.image.load("assets/charmander/jump.png")
     walk = 0
     animation_timer = 0
     animation_delay = 20 # Animation delay 
@@ -49,6 +52,8 @@ class character(Model):
             # Update the animation timer
             self.animation_timer = self.current_time
         # return image info
+        if self.jump == True:
+            return (self.charjump, self.x, self.y)
         return (self.charwalk[self.walk], self.x, self.y)
     
     #gets hitbox for character. A little smaller than what you see to allow for some on-the-edge gameplay

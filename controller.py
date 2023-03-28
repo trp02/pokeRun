@@ -50,13 +50,16 @@ class Controller:
             
             if(player.jump): 
                 self.movePlayer(player)
-            
-            
+            print(player.y)
+            playerHitbox = pygame.Rect(player.getHitbox())
             #blits all obstacles
             for obs in self.obstacles:
                 obsData = obs.getImgInfo()
                 self.view.blitImg(obsData[0], obsData[1], obsData[2])
                 self.view.drawRect((255,0,0), obs.getHitbox())
+                if pygame.Rect.colliderect(playerHitbox, pygame.Rect(obs.getHitbox())):
+                    print("GAME OVER DWEEB XDDD")
+                    pygame.time.delay(200)
         
             #blits player
             pData = player.getImgInfo()
