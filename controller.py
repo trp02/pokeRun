@@ -60,6 +60,7 @@ class Controller:
                 if pygame.Rect.colliderect(playerHitbox, pygame.Rect(obs.getHitbox())):
                     print("GAME OVER DWEEB XDDD")
                     pygame.time.delay(200)
+                    
         
             #blits player
             pData = player.getImgInfo()

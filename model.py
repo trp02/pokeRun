@@ -36,7 +36,7 @@ class obstacle2(Model):
 class character(Model):
     
     #walking animation
-    charwalk = [pygame.image.load("assets/bulbasaur/walk1.png"), pygame.image.load("assets/bulbasaur/walk2.png"), pygame.image.load("assets/bulbasaur/walk3.png"), pygame.image.load("assets/bulbasaur/walk4.png")]
+    charwalk = [pygame.image.load("assets/bulbasaur/walk1.png"), pygame.image.load("assets/charmander/walk2.png"), pygame.image.load("assets/squirtle/walk3.png"), pygame.image.load("assets/bulbasaur/walk4.png")]
     charjump = pygame.image.load("assets/bulbasaur/jump.png")
     walk = 0
     animation_timer = 0
