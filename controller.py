@@ -1,5 +1,5 @@
-import pygame, sys, math, random
-from model import Model, obstacle1, obstacle2, character
+import pygame, sys, math, random, time
+from model import Model, obstacle1, obstacle2, character, waterObs
 SCREEN_SIZE = SCREEN_WIDTH, SCREEN_HEIGHT = 1300, 675
 FLOOR = 510
 CHARFLOOR = 424
@@ -13,7 +13,8 @@ class Controller:
         self.view = v
         self.clock = pygame.time.Clock()
         self.obstacles = []
-    
+        self.lastCharChangeTime = time.time()
+
         self.trigger = pygame.USEREVENT + 2
         pygame.time.set_timer(self.trigger, random.randrange(2000, 3500))
         
@@ -39,7 +40,7 @@ class Controller:
                     if rand == 1:
                         self.obstacles.append(obstacle1(1350, FLOOR-52, 100, 52))
                     elif(rand == 2):
-                        self.obstacles.append(obstacle2(1350, FLOOR-52, 100, 52))
+                        self.obstacles.append(waterObs(1350, FLOOR-350, 100, 52))
             
             self.moveObstacles()
             self.updateBackground()
@@ -47,6 +48,12 @@ class Controller:
             keys = self.view.getPressed()
             if keys[pygame.K_SPACE]:
                 player.jump = True
+            
+            mouse = self.view.getMousePressed()
+            if mouse:
+                if mouse[0]:
+                    print(player.curChar)
+                    self.cycleChar(player)
             
             if(player.jump): 
                 self.movePlayer(player)
@@ -65,11 +72,18 @@ class Controller:
             #blits player
             pData = player.getImgInfo()
             self.view.blitImg(pData[0], pData[1], pData[2])
-            self.view.drawRect((255,0,0), player.getHitbox())
+          #  self.view.drawRect((255,0,0), player.getHitbox())
                 
             self.view.update()
             self.clock.tick(60)
     
+    
+    
+    def cycleChar(self, player):
+        currentTime = time.time()
+        if currentTime - self.lastCharChangeTime >= 0.2:
+            player.curChar = (player.curChar + 1) % 3
+            self.lastCharChangeTime = currentTime
     
     #for player controlled movements
     def movePlayer(self, player):

@@ -30,6 +30,9 @@ class View:
     def getPressed(self):
         return pygame.key.get_pressed()
     
+    def getMousePressed(self):
+        return pygame.mouse.get_pressed()
+    
     def update (self):
         pygame.display.update()
         
