@@ -13,6 +13,53 @@ class Model:
         self.curChar = 0
 
 
+class grassObs(Model):
+    grassImg = [pygame.image.load("assets/grass/tree1.png"),pygame.image.load("assets/grass/tree2.png")]
+    
+    animation_timer = 0
+    animation_delay = 20 # Animation delay 
+    current_time = 0
+    frame = 0
+    def getImgInfo(self):
+        self.current_time += 1
+        if self.current_time - self.animation_timer > self.animation_delay:
+            self.frame += 1
+            # Reset the walk counter if it exceeds the length of the charwalk list
+            if self.frame >= len(self.grassImg):
+                self.frame = 0
+            # Update the animation timer
+            self.animation_timer = self.current_time
+        # return image info
+    
+        return (self.grassImg[self.frame], self.x, self.y)
+    
+    def getHitbox(self):
+        return (self.x + 13, self.y + 25, self.width - 30, self.height - 40)
+
+class fireObs(Model):
+    fireImg = [pygame.image.load("assets/fire/fire1.png"),pygame.image.load("assets/fire/fire2.png"), pygame.image.load("assets/fire/fire3.png"),pygame.image.load("assets/fire/fire4.png")]
+    
+    animation_timer = 0
+    animation_delay = 10 # Animation delay 
+    current_time = 0
+    frame = 0
+    def getImgInfo(self):
+        self.current_time += 1
+        if self.current_time - self.animation_timer > self.animation_delay:
+            self.frame += 1
+            # Reset the walk counter if it exceeds the length of the charwalk list
+            if self.frame >= len(self.fireImg):
+                self.frame = 0
+            # Update the animation timer
+            self.animation_timer = self.current_time
+        # return image info
+    
+        return (self.fireImg[self.frame], self.x, self.y)
+    
+    def getHitbox(self):
+        return (self.x + 13, self.y + 25, self.width - 30, self.height - 40)
+    
+    
 class waterObs(Model):
    # waterImg = [pygame.image.load("assets/water/water1.png"),pygame.image.load("assets/water/water2.png"),pygame.image.load("assets/water/water3.png"),pygame.image.load("assets/water/water1.png"),pygame.image.load("assets/water/water2.png"),pygame.image.load("assets/water/water1.png")]
     waterImg = [pygame.image.load("assets/water/water2.png"),pygame.image.load("assets/water/water3.png"),pygame.image.load("assets/water/water2.png"),pygame.image.load("assets/water/water3.png")]

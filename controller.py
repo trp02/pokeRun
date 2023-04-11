@@ -1,5 +1,5 @@
 import pygame, sys, math, random, time
-from model import Model, obstacle1, obstacle2, character, waterObs
+from model import Model, obstacle1, obstacle2, character, waterObs, fireObs, grassObs
 SCREEN_SIZE = SCREEN_WIDTH, SCREEN_HEIGHT = 1300, 675
 FLOOR = 510
 CHARFLOOR = 424
@@ -36,11 +36,16 @@ class Controller:
                 #generates new obstacle
                 if event.type == self.trigger:
                     #chooses random obstacle to create
-                    rand = random.randint(1,2)
+                    rand = random.randint(1,4)
                     if rand == 1:
                         self.obstacles.append(obstacle1(1350, FLOOR-52, 100, 52))
                     elif(rand == 2):
+                        self.obstacles.append(fireObs(1350, FLOOR-280, 100, 52))
+                    elif(rand == 3):
                         self.obstacles.append(waterObs(1350, FLOOR-350, 100, 52))
+                    elif(rand == 4):
+                        self.obstacles.append(grassObs(1350, FLOOR-240, 100, 52))
+
             
             self.moveObstacles()
             self.updateBackground()
@@ -66,7 +71,7 @@ class Controller:
                 self.view.drawRect((255,0,0), obs.getHitbox())
                 if pygame.Rect.colliderect(playerHitbox, pygame.Rect(obs.getHitbox())):
                     print("GAME OVER DWEEB XDDD")
-                    pygame.time.delay(200)
+                   # pygame.time.delay(200)
                     
         
             #blits player
