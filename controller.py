@@ -40,11 +40,11 @@ class Controller:
                     if rand == 1:
                         self.obstacles.append(obstacle1(1350, FLOOR-52, 100, 52))
                     elif(rand == 2):
-                        self.obstacles.append(fireObs(1350, FLOOR-280, 100, 52))
+                        self.obstacles.append(fireObs(1350, FLOOR-280, 94, 300))
                     elif(rand == 3):
-                        self.obstacles.append(waterObs(1350, FLOOR-350, 100, 52))
+                        self.obstacles.append(waterObs(1350, FLOOR-350, 94, 300))
                     elif(rand == 4):
-                        self.obstacles.append(grassObs(1350, FLOOR-240, 100, 52))
+                        self.obstacles.append(grassObs(1350, FLOOR-240, 94, 300))
 
             
             self.moveObstacles()
@@ -57,12 +57,11 @@ class Controller:
             mouse = self.view.getMousePressed()
             if mouse:
                 if mouse[0]:
-                    print(player.curChar)
                     self.cycleChar(player)
             
             if(player.jump): 
                 self.movePlayer(player)
-            print(player.y)
+            #print(player.y)
             playerHitbox = pygame.Rect(player.getHitbox())
             #blits all obstacles
             for obs in self.obstacles:
@@ -70,7 +69,8 @@ class Controller:
                 self.view.blitImg(obsData[0], obsData[1], obsData[2])
                 self.view.drawRect((255,0,0), obs.getHitbox())
                 if pygame.Rect.colliderect(playerHitbox, pygame.Rect(obs.getHitbox())):
-                    print("GAME OVER DWEEB XDDD")
+                    pass 
+                    #print("GAME OVER DWEEB XDDD")
                    # pygame.time.delay(200)
                     
         

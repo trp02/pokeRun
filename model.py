@@ -34,7 +34,7 @@ class grassObs(Model):
         return (self.grassImg[self.frame], self.x, self.y)
     
     def getHitbox(self):
-        return (self.x + 13, self.y + 25, self.width - 30, self.height - 40)
+        return (self.x + 30, self.y + 30, self.width +20, self.height - 90)
 
 class fireObs(Model):
     fireImg = [pygame.image.load("assets/fire/fire1.png"),pygame.image.load("assets/fire/fire2.png"), pygame.image.load("assets/fire/fire3.png"),pygame.image.load("assets/fire/fire4.png")]
@@ -82,7 +82,7 @@ class waterObs(Model):
         return (self.waterImg[self.frame], self.x, self.y)
     
     def getHitbox(self):
-        return (self.x + 13, self.y + 25, self.width - 30, self.height - 40)
+        return (self.x + 80, self.y + 100, self.width  -50, self.height - 50)
 
 class obstacle1(Model):
     
