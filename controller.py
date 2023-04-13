@@ -1,7 +1,7 @@
 import pygame, sys, math, random, time
 from model import Model, obstacle1, obstacle2, character, waterObs, fireObs, grassObs, snorObs
-SCREEN_SIZE = SCREEN_WIDTH, SCREEN_HEIGHT = 1300, 675
-FLOOR = 610
+SCREEN_SIZE = SCREEN_WIDTH, SCREEN_HEIGHT = 1300, 600
+FLOOR = 490
 CHARFLOOR = 424
 #helper variables
 bg = 0
@@ -21,18 +21,20 @@ class Controller:
     def startGame(self):
         #game quit
         #can only happen after view has been initalized I guess
-        global bg, tiles
-        bg = pygame.image.load("assets/background6.jpg").convert()
+        global bg, tiles, scroll
+        bg = pygame.image.load("assets/background7.png").convert()
         tiles = math.ceil(SCREEN_WIDTH / (bg.get_width())) + 1
         
-        player = character(500, 528, 86, 100)
+        player = character(500, 410, 86, 100)
         
         while True:
+            
             for event in self.view.getEvents():
                 if event.type == pygame.QUIT:
                     self.view.endGame()
                     sys.exit()
                     
+                
                 #generates new obstacle
                 if event.type == self.trigger:
                     #chooses random obstacle to create
@@ -46,7 +48,18 @@ class Controller:
                     elif(rand == 4):
                         self.obstacles.append(grassObs(1350, FLOOR-251, 94, 300))
 
-            
+            if player.health <= 0:
+                player.jump = True
+                self.movePlayer(player)
+                pData = player.getImgInfo()
+                for i in range(-1, tiles):
+                    w = bg.get_width()
+                    self.view.blitImg(bg, (i * w + scroll % w), 0)
+                self.view.blitImg(pData[0], pData[1], pData[2])
+                self.view.update()
+                self.clock.tick(60)
+                continue
+                
             self.moveObstacles()
             self.updateBackground()
             
@@ -64,16 +77,32 @@ class Controller:
             #print(player.y)
             playerHitbox = pygame.Rect(player.getHitbox())
             #blits all obstacles
+            
             for obs in self.obstacles:
                 obsData = obs.getImgInfo()
                 self.view.blitImg(obsData[0], obsData[1], obsData[2])
                 self.view.drawRect((255,0,0), obs.getHitbox())
                 if pygame.Rect.colliderect(playerHitbox, pygame.Rect(obs.getHitbox())):
-                    pass 
+                    if player.curChar == 0 and (type(obs) is fireObs):
+                        player.health -= 0.5
+                    elif player.curChar == 0 and (type(obs) is waterObs):
+                        player.health -= 1
+                    elif player.curChar == 1 and (type(obs) is waterObs):
+                        player.health -= 0.5
+                    elif player.curChar == 1 and (type(obs) is grassObs):
+                        player.health -= 1
+                    elif player.curChar == 2 and (type(obs) is grassObs):
+                        player.health -= 0.5
+                    elif player.curChar == 2 and (type(obs) is fireObs):
+                        player.health -= 1
+                    elif type(obs) is snorObs:
+                        player.health -= 1
+                    self.obstacles.remove(obs)
                     #print("GAME OVER DWEEB XDDD")
                    # pygame.time.delay(200)
                     
-        
+            self.drawHealth(player)
+            
             #blits player
             pData = player.getImgInfo()
             self.view.blitImg(pData[0], pData[1], pData[2])
@@ -82,7 +111,13 @@ class Controller:
             self.view.update()
             self.clock.tick(60)
     
-    
+    def drawHealth(self, player):
+        packs = player.getHealth()
+        x = 20
+        y = 30
+        for p in packs:
+            self.view.blitImg(p, x, y)
+            x += 100
     
     def cycleChar(self, player):
         currentTime = time.time()
@@ -93,12 +128,14 @@ class Controller:
     #for player controlled movements
     def movePlayer(self, player):
 
-        player.y -= player.velocity
+        if player.y < 610:
+            player.y -= player.velocity
+
         player.velocity -= .2
-            
         if player.velocity < -10:
             player.jump = False
-            player.velocity = 10
+            if player.health > 0:
+                player.velocity = 10
         
     def moveObstacles(self):
         #keeps obstacles moving along with the background and removes once they go off screen

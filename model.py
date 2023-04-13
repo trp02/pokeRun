@@ -10,10 +10,11 @@ class Model:
         self.height = height
         self.jump = False
         self.velocity = 10
-        self.curChar = 0
+        self.curChar = 0 #char squir bulb 
+        self.health = 3
 
 class snorObs(Model):
-    snorImg = [pygame.image.load("assets/fatass/sleep1.png"),pygame.image.load("assets/fatass/sleep2.png") ]
+    snorImg = [pygame.image.load("assets/snorlax/sleep1.png"),pygame.image.load("assets/snorlax/sleep2.png") ]
     
     animation_timer = 0
     animation_delay = 20 # Animation delay 
@@ -140,6 +141,7 @@ class character(Model):
     animation_delay = 20 # Animation delay 
     current_time = 0
     
+    healthPacks = [pygame.image.load("assets/health/1.png"), pygame.image.load("assets/health/0.5.png")]
 
     def getImgInfo(self):
         self.current_time += 1
@@ -170,5 +172,16 @@ class character(Model):
     #gets hitbox for character. A little smaller than what you see to allow for some on-the-edge gameplay
     def getHitbox(self):
         return (self.x + 13, self.y + 25, self.width - 30, self.height - 40)
+    
+    def getHealth(self):
+        healthArray = []
+        hlt = self.health
+        while(hlt > .5):
+            healthArray.append(self.healthPacks[0])
+            hlt -= 1
+        if hlt == .5:
+            healthArray.append(self.healthPacks[1])
+        return healthArray
+        
 
 
