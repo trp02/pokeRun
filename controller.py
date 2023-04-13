@@ -1,7 +1,7 @@
 import pygame, sys, math, random, time
-from model import Model, obstacle1, obstacle2, character, waterObs, fireObs, grassObs
+from model import Model, obstacle1, obstacle2, character, waterObs, fireObs, grassObs, snorObs
 SCREEN_SIZE = SCREEN_WIDTH, SCREEN_HEIGHT = 1300, 675
-FLOOR = 510
+FLOOR = 610
 CHARFLOOR = 424
 #helper variables
 bg = 0
@@ -22,10 +22,10 @@ class Controller:
         #game quit
         #can only happen after view has been initalized I guess
         global bg, tiles
-        bg = pygame.image.load("assets/background.png").convert()
+        bg = pygame.image.load("assets/background6.jpg").convert()
         tiles = math.ceil(SCREEN_WIDTH / (bg.get_width())) + 1
         
-        player = character(500, 423, 86, 100)
+        player = character(500, 528, 86, 100)
         
         while True:
             for event in self.view.getEvents():
@@ -38,13 +38,13 @@ class Controller:
                     #chooses random obstacle to create
                     rand = random.randint(1,4)
                     if rand == 1:
-                        self.obstacles.append(obstacle1(1350, FLOOR-52, 100, 52))
+                        self.obstacles.append(snorObs(1350, FLOOR-52, 100, 52))
                     elif(rand == 2):
                         self.obstacles.append(fireObs(1350, FLOOR-280, 94, 300))
                     elif(rand == 3):
                         self.obstacles.append(waterObs(1350, FLOOR-350, 94, 300))
                     elif(rand == 4):
-                        self.obstacles.append(grassObs(1350, FLOOR-240, 94, 300))
+                        self.obstacles.append(grassObs(1350, FLOOR-251, 94, 300))
 
             
             self.moveObstacles()
