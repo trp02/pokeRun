@@ -12,7 +12,18 @@ class Model:
         self.velocity = 10
         self.curChar = 0 #char squir bulb 
         self.health = 3
-
+        
+        self.pack = 0
+        
+class hPack(Model):
+    hImage = [pygame.image.load("assets/health/fireheart.png"),pygame.image.load("assets/health/waterheart.png"),pygame.image.load("assets/health/grassheart.png") ]
+    
+    def getImgInfo(self):
+        return (self.hImage[self.pack], self.x, self.y)
+    
+    def getHitbox(self):
+        return (self.x, self.y, self.width, self.height)
+    
 class snorObs(Model):
     snorImg = [pygame.image.load("assets/snorlax/sleep1.png"),pygame.image.load("assets/snorlax/sleep2.png") ]
     

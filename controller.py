@@ -1,5 +1,5 @@
 import pygame, sys, math, random, time
-from model import Model, obstacle1, obstacle2, character, waterObs, fireObs, grassObs, snorObs
+from model import Model, obstacle1, obstacle2, character, waterObs, fireObs, grassObs, snorObs, hPack
 SCREEN_SIZE = SCREEN_WIDTH, SCREEN_HEIGHT = 1300, 600
 FLOOR = 490
 CHARFLOOR = 424
@@ -47,11 +47,25 @@ class Controller:
                         self.obstacles.append(waterObs(1350, FLOOR-350, 94, 300))
                     elif(rand == 4):
                         self.obstacles.append(grassObs(1350, FLOOR-251, 94, 300))
-
+                        
+            if player.health < 2.5:
+                rand = random.randint(1, 50)
+                if rand == 5:
+                    x = self.obstacles[len(self.obstacles) -1].x 
+                    y = random.randint(200, 400)
+                    t = hPack(x + 220, y, 40, 40)
+                    rand = random.randint(0,2)
+                    t.pack = rand
+                    self.obstacles.append(t)
+                    for i in range(len(self.obstacles)):
+                        if (i < len(self.obstacles) - 1) and type(self.obstacles[i]) is hPack:
+                            self.obstacles.remove(t)
+                                    
             if player.health <= 0:
                 player.jump = True
                 self.movePlayer(player)
                 pData = player.getImgInfo()
+                self.updateBackground()
                 for i in range(-1, tiles):
                     w = bg.get_width()
                     self.view.blitImg(bg, (i * w + scroll % w), 0)
@@ -97,7 +111,12 @@ class Controller:
                         player.health -= 1
                     elif type(obs) is snorObs:
                         player.health -= 1
-                    self.obstacles.remove(obs)
+                    elif type(obs) is hPack:
+                        if obs.pack == player.curChar:
+                            player.health += .5
+                            self.obstacles.remove(obs)
+                    if type(obs) is not hPack:
+                        self.obstacles.remove(obs)
                     #print("GAME OVER DWEEB XDDD")
                    # pygame.time.delay(200)
                     
