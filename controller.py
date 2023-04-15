@@ -23,11 +23,12 @@ class Controller:
         
     def startGame(self):
         #game quit
-        #can only happen after view has been initalized I guess
         global bg, tiles, scroll
         bg = pygame.image.load("assets/background7.png").convert()
         startImg = pygame.image.load("assets/loading/start.jpg")
         tiles = math.ceil(SCREEN_WIDTH / (bg.get_width())) + 1
+        
+        #reads and stores current highscore
         highscore = 0
         with open('highscore.txt', 'r') as f:
             highscore = f.read()
@@ -35,10 +36,12 @@ class Controller:
         
         font = pygame.font.SysFont("CourierNew", 72)
         txtsurf = font.render("Highscore: " + str(highscore), True, (0,0,0))
-        
         font2 = pygame.font.SysFont("CourierNew", 40)
         txtsurf2 = 0
+        
         input_received = False
+        
+        #start loading screen
         while not input_received:
             self.view.blitImg(startImg, 0, 0)
             self.view.update()
@@ -55,7 +58,7 @@ class Controller:
                     self.view.endGame()
                     sys.exit()
                                 
-                #generates new obstacle
+                #generates new obstacles
                 if event.type == self.trigger:
                     #chooses random obstacle to create
                     rand = random.randint(1,4)
@@ -80,7 +83,8 @@ class Controller:
                             self.obstacles.append(waterObs(1350 +buf, FLOOR-350, 94, 300))
                         elif(rand == 4):
                             self.obstacles.append(grassObs(1350 +buf, FLOOR-251, 94, 300))
-                        
+            
+            #starts to spawn health orbs if needed
             if player.health < 2.5:
                 rand = random.randint(1, 50)
                 if rand == 5:
@@ -95,10 +99,9 @@ class Controller:
                             for i in range(len(self.obstacles)):
                                 if (i < len(self.obstacles) - 1) and type(self.obstacles[i]) is hPack:
                                     self.obstacles.remove(t)
-                                            
-            if player.health <= 0:
-                
-                
+            
+            #loop for end screen                             
+            if player.health <= 0:             
                 player.jump = True
                 self.movePlayer(player)
                 pData = player.getImgInfo()
@@ -112,7 +115,7 @@ class Controller:
                 self.view.update()
                 self.clock.tick(60)
                 continue
-                
+        
             self.moveObstacles()
             self.updateBackground()
             
@@ -131,10 +134,11 @@ class Controller:
             playerHitbox = pygame.Rect(player.getHitbox())
             #blits all obstacles
             
+            #dictates damage taken and draws obstacles
             for obs in self.obstacles:
                 obsData = obs.getImgInfo()
                 self.view.blitImg(obsData[0], obsData[1], obsData[2])
-               # self.view.drawRect((255,0,0), obs.getHitbox())
+                #collison detection
                 if pygame.Rect.colliderect(playerHitbox, pygame.Rect(obs.getHitbox())):
                     if player.curChar == 0 and (type(obs) is fireObs):
                         player.health -= 0.5
@@ -164,10 +168,10 @@ class Controller:
             #blits player
             pData = player.getImgInfo()
             self.view.blitImg(pData[0], pData[1], pData[2])
-          #  self.view.drawRect((255,0,0), player.getHitbox())
             self.updateClock()
             self.view.update()
             self.clock.tick(self.clockspeed)
+            #game end 
             if player.health <= 0:
                 if(self.score > float(highscore)):
                     with open('highscore.txt', 'w') as f:
@@ -177,7 +181,7 @@ class Controller:
 
 
             
-        
+    #updates clock speed to make game faster
     def updateClock(self):
         if self.clockspeed > 100 and self.triggerDelay > 0:
             self.triggerDelay -= 10
@@ -185,7 +189,7 @@ class Controller:
         if self.clockspeed < 180:
             self.clockspeed += .05
         
-        
+    #draws hearts to represent health
     def drawHealth(self, player):
         packs = player.getHealth()
         x = 20
@@ -194,6 +198,7 @@ class Controller:
             self.view.blitImg(p, x, y)
             x += 100
     
+    #cycles character
     def cycleChar(self, player):
         currentTime = time.time()
         if currentTime - self.lastCharChangeTime >= 0.2:

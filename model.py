@@ -15,6 +15,8 @@ class Model:
         
         self.pack = 0
         
+        
+#healthpack
 class hPack(Model):
     hImage = [pygame.image.load("assets/health/fireheart.png"),pygame.image.load("assets/health/waterheart.png"),pygame.image.load("assets/health/grassheart.png") ]
     
@@ -23,7 +25,9 @@ class hPack(Model):
     
     def getHitbox(self):
         return (self.x, self.y, self.width, self.height)
-    
+
+
+#snorlax
 class snorObs(Model):
     snorImg = [pygame.image.load("assets/snorlax/sleep1.png"),pygame.image.load("assets/snorlax/sleep2.png") ]
     
@@ -47,6 +51,8 @@ class snorObs(Model):
     def getHitbox(self):
         return (self.x + 29, self.y+10, self.width -30, self.height)
     
+    
+#grass obstacle
 class grassObs(Model):
     grassImg = [pygame.image.load("assets/grass/tree2.png"),pygame.image.load("assets/grass/tree2.png")]
     
@@ -70,6 +76,8 @@ class grassObs(Model):
     def getHitbox(self):
         return (self.x + 30, self.y + 30, self.width +20, self.height - 90)
 
+
+#fire obstacle
 class fireObs(Model):
     fireImg = [pygame.image.load("assets/fire/fire1.png"),pygame.image.load("assets/fire/fire2.png"), pygame.image.load("assets/fire/fire3.png"),pygame.image.load("assets/fire/fire4.png")]
     
@@ -94,8 +102,8 @@ class fireObs(Model):
         return (self.x + 13, self.y + 25, self.width - 30, self.height - 40)
     
     
+#water obstacle
 class waterObs(Model):
-   # waterImg = [pygame.image.load("assets/water/water1.png"),pygame.image.load("assets/water/water2.png"),pygame.image.load("assets/water/water3.png"),pygame.image.load("assets/water/water1.png"),pygame.image.load("assets/water/water2.png"),pygame.image.load("assets/water/water1.png")]
     waterImg = [pygame.image.load("assets/water/water2.png"),pygame.image.load("assets/water/water3.png"),pygame.image.load("assets/water/water2.png"),pygame.image.load("assets/water/water3.png")]
 
     animation_timer = 0
@@ -112,7 +120,7 @@ class waterObs(Model):
             # Update the animation timer
             self.animation_timer = self.current_time
         # return image info
-    
+
         return (self.waterImg[self.frame], self.x, self.y)
     
     def getHitbox(self):
@@ -137,7 +145,7 @@ class obstacle2(Model):
     def getHitbox(self):
         return (self.x + 8, self.y + 3, self.width - 12, self.height - 3)
     
-    
+#all models for character
 class character(Model):
     
     #walking animation
