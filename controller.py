@@ -28,9 +28,16 @@ class Controller:
         bg = pygame.image.load("assets/background7.png").convert()
         startImg = pygame.image.load("assets/loading/start.jpg")
         tiles = math.ceil(SCREEN_WIDTH / (bg.get_width())) + 1
-        
+        highscore = 0
+        with open('highscore.txt', 'r') as f:
+            highscore = f.read()
         player = character(500, 410, 86, 100)
-
+        
+        font = pygame.font.SysFont("CourierNew", 72)
+        txtsurf = font.render("Highscore: " + str(highscore), True, (0,0,0))
+        
+        font2 = pygame.font.SysFont("CourierNew", 40)
+        txtsurf2 = 0
         input_received = False
         while not input_received:
             self.view.blitImg(startImg, 0, 0)
@@ -47,13 +54,12 @@ class Controller:
                 if event.type == pygame.QUIT:
                     self.view.endGame()
                     sys.exit()
-                
-                self.score += 1
-                
+                                
                 #generates new obstacle
                 if event.type == self.trigger:
                     #chooses random obstacle to create
                     rand = random.randint(1,4)
+                    self.score += 1
                     if rand == 1:
                         self.obstacles.append(snorObs(1350, FLOOR-52, 100, 52))
                     elif(rand == 2):
@@ -63,6 +69,7 @@ class Controller:
                     elif(rand == 4):
                         self.obstacles.append(grassObs(1350, FLOOR-251, 94, 300))
                     if self.clockspeed > 170:
+                        self.score += 1
                         rand = random.randint(1,4)
                         buf = 450
                         if rand == 1:
@@ -90,6 +97,8 @@ class Controller:
                                     self.obstacles.remove(t)
                                             
             if player.health <= 0:
+                
+                
                 player.jump = True
                 self.movePlayer(player)
                 pData = player.getImgInfo()
@@ -98,6 +107,8 @@ class Controller:
                     w = bg.get_width()
                     self.view.blitImg(bg, (i * w + scroll % w), 0)
                 self.view.blitImg(pData[0], pData[1], pData[2])
+                self.view.blitImg(txtsurf, 320, 100)
+                self.view.blitImg(txtsurf2, 450, 200)
                 self.view.update()
                 self.clock.tick(60)
                 continue
@@ -157,8 +168,16 @@ class Controller:
             self.updateClock()
             self.view.update()
             self.clock.tick(self.clockspeed)
-            self.score += 1
-        print(self.score)
+            if player.health <= 0:
+                if(self.score > float(highscore)):
+                    with open('highscore.txt', 'w') as f:
+                        f.write(str(self.score))
+                    txtsurf = font.render("Highscore: " + str(self.score), True, (0,0,0))
+                txtsurf2 = font2.render("Your Score: " + str(self.score), True, (0,0,0))
+
+
+            
+        
     def updateClock(self):
         if self.clockspeed > 100 and self.triggerDelay > 0:
             self.triggerDelay -= 10
