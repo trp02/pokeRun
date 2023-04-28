@@ -6,6 +6,8 @@ class View:
     #initializes board
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()
+
         pygame.display.set_caption("Side scroller")
         self.surface = pygame.display.set_mode(SCREEN_SIZE)
         
