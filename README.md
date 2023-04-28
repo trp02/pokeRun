@@ -1,7 +1,6 @@
 ﻿<a name="br1"></a>**PokeRun Intro**
 
-The game is called PokeRun
-
+![Alt text](https://user-images.githubusercontent.com/83850231/235234131-99a49b78-8670-4845-9968-a853d5bcfc97.png)
 There is a start screen that summarizes how to play the game visually. It’s mostly self
 explanatory. How much damage you take from an obstacle will depend on which pokemon you
 use to run through it. Also health can only be picked up by the pokemon of the same type.
