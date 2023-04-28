@@ -25,8 +25,9 @@ class Controller:
         #game quit
         global bg, tiles, scroll
         bg = pygame.image.load("assets/background7.png").convert()
-        startImg = pygame.image.load("assets/loading/start.jpg")
+        startImg = pygame.image.load("assets/loading/start.jpg")        
         tiles = math.ceil(SCREEN_WIDTH / (bg.get_width())) + 1
+        jumpSound = pygame.mixer.Sound("assets/jump.mp3")
         
         #reads and stores current highscore
         highscore = 0
@@ -39,6 +40,7 @@ class Controller:
         font2 = pygame.font.SysFont("CourierNew", 40)
         txtsurf2 = 0
         
+        
         input_received = False
         
         #start loading screen
@@ -50,7 +52,7 @@ class Controller:
                     input_received = True
                 elif event.type == pygame.KEYDOWN:
                     input_received = True
-                
+        #game start       
         while True:
             
             for event in self.view.getEvents():
@@ -118,10 +120,13 @@ class Controller:
         
             self.moveObstacles()
             self.updateBackground()
-            
+
             keys = self.view.getPressed()
             if keys[pygame.K_SPACE]:
                 player.jump = True
+                if player.y > 409:
+                    pygame.mixer.Sound.play(jumpSound)
+                
             
             mouse = self.view.getMousePressed()
             if mouse:
@@ -210,7 +215,7 @@ class Controller:
 
         if player.y < 610:
             player.y -= player.velocity
-
+        
         player.velocity -= .2
         if player.velocity < -10:
             player.jump = False
