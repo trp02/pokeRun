@@ -1,6 +1,6 @@
 ﻿<a name="br1"></a>**PokeRun Intro**
  
- <a name="br2"></a>**See GameDoc.pdf for more details. CLICK BELOW FOR LINKS THEY DON'T WORK IN PDF**
+ <a name="br2"></a>**See GameDoc.pdf for full game document. CLICK BELOW FOR LINKS THEY DON'T WORK IN PDF**
 
 
 ![Alt text](https://user-images.githubusercontent.com/83850231/235234131-99a49b78-8670-4845-9968-a853d5bcfc97.png)
