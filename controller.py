@@ -24,6 +24,7 @@ class Controller:
     def startGame(self):
         #game quit
         global bg, tiles, scroll
+        #static images 
         bg = pygame.image.load("assets/background7.png").convert()
         startImg = pygame.image.load("assets/loading/start.jpg")        
         tiles = math.ceil(SCREEN_WIDTH / (bg.get_width())) + 1
@@ -52,6 +53,8 @@ class Controller:
                     input_received = True
                 elif event.type == pygame.KEYDOWN:
                     input_received = True
+                    
+                    
         #game start       
         while True:
             
@@ -165,8 +168,6 @@ class Controller:
                             self.obstacles.remove(obs)
                     if type(obs) is not hPack:
                         self.obstacles.remove(obs)
-                    #print("GAME OVER DWEEB XDDD")
-                   # pygame.time.delay(200)
                     
             self.drawHealth(player)
             
