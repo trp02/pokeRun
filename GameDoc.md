@@ -1,0 +1,100 @@
+# PokeRun
+
+## Intro
+
+ThegameiscalledPokeRun
+
+Thereisastartscreenthatsummarizeshowtoplaythegamevisually.It’smostlyself
+explanatory.Howmuchdamageyoutakefromanobstaclewilldependonwhichpokemonyou
+usetorunthroughit.Alsohealthcanonlybepickedupbythepokemonofthesametype.
+
+
+**Toplaythegame:**
+
+- gitclonehttps://github.com/trp02/pokeRun.git
+- havepygameinstalled
+- run **main.py**
+- versionsused: **python3.9.13** , **pygame2.1.3** ,shouldworkonWindowsandMacOS.Didn’t
+workonclemsonSoCvirtualdesktopdueto“noaudiodevice”error.PrimarywayIranitwason
+VSCodewithpygameinstalled.
+- **Controls** :Leftclicktocyclecharacterandspacetojump
+
+## GameDesign
+
+Thegameisaninfinitesidescroller.Theplayerwillhavetocyclethroughcharactersanddodge
+obstaclesthatspawnrandomly.Asthegamegoesonitwillbecomefasteruntilithitsacapand
+fromtherethegoalistolastaslongaspossible.Thegimmickisthatthereareobstaclesthat
+youcan’tjumpover.Ratheryouhavetopickwhichcharactertocycletoinordertonottake
+damage.Andifyoumessuptheplayerwilltakedamagebasedonhoweffectivetheobstacle
+typeiscomparedtothepokemonrunningthroughit.Mostothersidescrollergamesfrommy
+experiencehavepowerupsthatyoucanpickupfortemporaryboostsbutinmygamethe
+“powerup”isalreadythere,youjusthavetolearnwhentopullitout.
+
+Thereisnorealstory,just **survive**.
+
+TheprimaryemotionIwanttheplayertofeelisfrustration.Thegameissimpleonthesurface
+butasthepacepicksuptheplayerwillhavelessandlesstimetoreacttotheirsurroundings
+andoncetheyaccidentallymessuponceandlosehealthit’llrattlethemandloseconcentration
+leadingthemtodiesoonafter.Thebiggestchallengewillbetofindarhythmandfigureouta
+patternforswitchingcharacters.Sothey’llthinksomethinglike:“OkIneedtoswitchto
+charmandertopickupthisfirehealthpackandimmediatelyafterleftclicktwicetochangeto
+bulbasaurtorunthroughthewaterwall”.Theywillalsoneedcoldhandsbecauseifthey
+accidentallyclickonetoomanytimestheremightnotbeenoughtimetocycleback,essentially
+cripplinganyplantheyhad.Theplayerwillhavetoreactquicklyandmoreimportantly,stay
+calm.
+Theaimistogetthehighscoreandnothingelsewillberecordedbecauseifyou’renotfirst
+you’relast.
+
+## GameDesignChanges
+
+**OriginalConcept:**
+Atthebaselevelthegamewillruninafamiliarway.Theplayerwillbecontrollingacharacter
+andthegoalistokeepthemalive.Asthegameprogressesitwillbecomefasteranditwillbe
+importanttoexecutemoveswithprecisionandspeed.Theplayerwillbeabletoswitchbetween
+threecharacterswhichwillbecycledinasetorder.Theplayerwillhavethefreedomtoswitch
+asmanytimesastheywant.Eachcharacterwillhaveauniquenatureindicatedbytheircolor:
+fire,waterandgrass.Iftheplayerchoosesthewrongcharacterorgetshitbyaneutralobject
+theywilldie.
+
+
+**Changes** :
+Overallthegameplayitselfisverysimilartowhatwasoriginallyproposed.Mostofthechanges
+werevisually.FormostoftheearlydevelopmentIwasplanningonthegamehavingamuch
+smootherstyleofgraphics-notpixelated.ButovertimeIrealizedinordertoaccomplishthatI
+wouldneedtocreatetheartmyselfbecauseit’shardtofindassetsthatmeshwelltogether.For
+thatreasonIswitchedtopixelstyle.
+Mechanicsandgimmickareidenticaltowhatwasoriginallyenvisioned.
+
+## Development/Documentation
+
+**Bugs** :
+Gamespawnworkswithrealtimesoifyouareplayingthegameandclickontoptodragthe
+window,obstaclesspawningwillscrewupandclumptogether.
+Alsotherehasbeenarangeofperformanceissues.Frompersonalexperiencethegameruns
+perfectlyfineonmyWindowsdesktop(asseeninvideo)butonmyMacbookI’veconsistently
+encounteredscreentearing.Possiblyduetohardwareandcodeoptimization.
+
+
+## Roles,Tasks,Performance
+
+Tirth-100%
+Obstaclesystem,animations,asset/hitboxadjustment,collisions,healthsystem,input
+mechanics,interactionadjustment,gametime,bugfixes,gamemovement,gamedocs,asset
+search,etc.
+
+Milestone1:Addedrudimentaryobstaclesystem,onecharacteranimations/movement,basic
+collisiondetection
+
+Milestone2:Addedassets/animationforremainingcharacters,gamepacing,remaining
+obstacles,gameinput/controls,adjustedhitboxes
+
+Final: Healthsystem,individualinteractionfinalized,eliminatedbugs,highscoresystemand
+loadingscreens
+
+Assets:https://sprites.pmdcollab.org,itch.ioandotherwebsiteswhoI’mprettysurejuststolethe
+art.
+
+**DEMO:**
+https://www.youtube.com/watch?v=H4QhCFWzs
+
+
