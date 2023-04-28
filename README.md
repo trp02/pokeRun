@@ -22,6 +22,8 @@ VSCode with pygame installed.
 
 \- **Controls** : Left click to cycle character and space to jump
 
+GameDoc https://github.com/trp02/pokeRun/files/11356711/FinalGame.Doc.pdf
+
 **DEMO:**
 
 <https://www.youtube.com/watch?v=H4QhCFWzs68>
