@@ -40,7 +40,8 @@ class Controller:
         txtsurf = font.render("Highscore: " + str(highscore), True, (0,0,0))
         font2 = pygame.font.SysFont("CourierNew", 40)
         txtsurf2 = 0
-        
+        font3 = pygame.font.SysFont("CourierNew", 30)
+        txtsurf3 = font3.render("Press R to Replay", True, (0,0,0))
         
         input_received = False
         
@@ -117,8 +118,13 @@ class Controller:
                 self.view.blitImg(pData[0], pData[1], pData[2])
                 self.view.blitImg(txtsurf, 320, 100)
                 self.view.blitImg(txtsurf2, 450, 200)
+                self.view.blitImg(txtsurf3, 450, 300)
                 self.view.update()
                 self.clock.tick(60)
+                keys = self.view.getPressed()
+                if keys[pygame.K_r]:
+                    self.resetVariables()
+                    self.startGame()
                 continue
         
             self.moveObstacles()
@@ -186,7 +192,17 @@ class Controller:
                 txtsurf2 = font2.render("Your Score: " + str(self.score), True, (0,0,0))
 
 
-            
+    #resets variables for game replay
+    def resetVariables(self):
+        self.clock = pygame.time.Clock()
+        self.obstacles = []
+        self.lastCharChangeTime = time.time()
+        self.triggerDelay = 2500
+        self.triggerDelay2 = 2600
+        self.trigger = pygame.USEREVENT + 2
+        self.clockspeed = 60
+        self.score = 0
+        
     #updates clock speed to make game faster
     def updateClock(self):
         if self.clockspeed > 100 and self.triggerDelay > 0:
